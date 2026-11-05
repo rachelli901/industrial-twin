@@ -1,0 +1,14 @@
+FROM node:20-alpine
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY server.ts ./
+COPY server ./server
+COPY src/domain ./src/domain
+COPY src/utils/telemetryProtocol.ts ./src/utils/telemetryProtocol.ts
+COPY tsconfig*.json ./
+
+EXPOSE 8080
+CMD ["npx", "tsx", "server.ts"]

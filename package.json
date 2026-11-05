@@ -1,0 +1,35 @@
+{
+  "name": "industrial-twin",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "server": "tsx server.ts",
+    "test": "node --import tsx --test tests/*.test.mjs",
+    "mock-plc": "tsx scripts/mock-plc-publisher.ts"
+  },
+  "dependencies": {
+    "echarts": "^6.1.0",
+    "gsap": "^3.15.1",
+    "mqtt": "^5.16.1",
+    "pinia": "^4.1.0",
+    "three": "^0.187.0",
+    "vue": "^3.5.44",
+    "ws": "^8.22.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@types/three": "^0.187.0",
+    "@types/ws": "^8.18.2",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "@vue/tsconfig": "^0.9.1",
+    "mqtt-packet": "^9.0.2",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.5",
+    "vue-tsc": "^3.3.13"
+  }
+}
