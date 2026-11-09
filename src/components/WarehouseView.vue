@@ -18,6 +18,8 @@ import { useWarehouseStore } from '../stores/warehouse';
 import type { PoiKey } from '../three/SceneManager';
 import { SceneManager } from '../three/SceneManager';
 import { TelemetryClient } from '../utils/telemetryClient';
+import { LocalSimulationClient } from '../utils/localSimulationClient';
+import type { GatewayClient } from '../utils/gatewayClient';
 
 const store = useWarehouseStore();
 const viewportRef = ref<HTMLDivElement | null>(null);
@@ -30,7 +32,7 @@ function submitToken() {
   loginError.value = '';
 }
 let manager: SceneManager | null = null;
-let telemetry: TelemetryClient | null = null;
+let telemetry: GatewayClient | null = null;
 let commandTimer = 0;
 defineExpose({ flyToPoi: (poi: PoiKey, onComplete?: () => void) => manager?.flyToPoi(poi, onComplete) });
 
@@ -45,10 +47,13 @@ onMounted(() => {
     manager.toggleHeatmap(store.showHeatmap);
   }
 
-  // 改为动态同源地址（自适应容器对外映射的任何端口）：
-  const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-  const wsUrl = `${protocol}//${window.location.host}/v1/telemetry`;
-  telemetry = new TelemetryClient(wsUrl);
+  if (import.meta.env.VITE_DEMO_MODE === 'static') {
+    telemetry = new LocalSimulationClient();
+  } else {
+    // 动态同源地址（自适应容器对外映射的任何端口）：
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    telemetry = new TelemetryClient(`${protocol}//${window.location.host}/v1/telemetry`);
+  }
   telemetry.onAuthRequired = () => { loginVisible.value = true; };
   telemetry.onAuthFailure = () => {
     loginVisible.value = true;

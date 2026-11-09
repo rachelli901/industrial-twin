@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "build:static": "vue-tsc -b && vite build --mode static --outDir dist-static",
     "preview": "vite preview",
     "server": "tsx server.ts",
     "test": "node --import tsx --test tests/*.test.mjs",
