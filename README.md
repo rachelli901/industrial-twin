@@ -120,6 +120,8 @@ npx vite preview --outDir dist-static --port 4173
 
 `WarehouseView.vue` 按 `import.meta.env.VITE_DEMO_MODE` 选择 `LocalSimulationClient`（浏览器引擎）或 `TelemetryClient`（WebSocket 网关），两者实现同一 `GatewayClient` 接口，业务层无需改动。完整构建、Vercel 部署与排错步骤见 [docs/STATIC_DEMO_DEPLOYMENT.md](docs/STATIC_DEMO_DEPLOYMENT.md)。已上线示例：<https://twin.ixoshub.top/>。
 
+系统架构、模块划分与职责、核心功能清单、关键算法（A* 寻路、任务状态机、双车协同、静态化改造原理）的完整说明见 [技术文档](./docs/TECHNICAL_GUIDE.md)。
+
 ## 体验一次完整作业
 
 1. 登录后，点击蓝色占用库位，或在右侧任务中心点击「一键出库」。初始有 6 个有货库位，两台空闲车自动领取任务。

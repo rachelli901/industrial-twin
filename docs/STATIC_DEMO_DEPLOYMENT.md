@@ -1,5 +1,7 @@
 # 静态演示版构建与部署手册
 
+> 系统实现细节、模块划分与功能清单见 [TECHNICAL_GUIDE.md](./TECHNICAL_GUIDE.md)。
+
 本手册说明如何将 Industrial Twin 大屏发布为一个**免令牌、无后端、可直接分享链接**的静态站点。适用于：把演示页发给客户/面试官看，或挂在自己的域名上长期展示。
 
 > 已上线示例：<https://twin.ixoshub.top/>（Vercel + 自定义域名，免令牌、可交互）
