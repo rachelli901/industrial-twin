@@ -109,6 +109,17 @@ npm run dev
 
 没有 `.env` 或固定令牌时，MOCK 网关会在终端输出临时访问令牌；已有 `.env` 时使用其中的 `GATEWAY_TOKEN`。网关和模拟 PLC 发布器会读取 `.env`，显式环境变量优先，修改后需重启服务。浏览器令牌仅存于当前标签页的 `sessionStorage`。
 
+### 静态演示版（免令牌、无后端）
+
+想把大屏直接发给别人看、且**不需要令牌、不需要后端**时，可以构建静态演示版：仿真引擎在浏览器内运行，打开链接即见 3D 大屏并可交互。适合演示分享，但不支持多客户端同步与 MQTT 遥测。
+
+```sh
+npm run build:static      # 产物在 dist-static/，不覆盖 dist/
+npx vite preview --outDir dist-static --port 4173
+```
+
+`WarehouseView.vue` 按 `import.meta.env.VITE_DEMO_MODE` 选择 `LocalSimulationClient`（浏览器引擎）或 `TelemetryClient`（WebSocket 网关），两者实现同一 `GatewayClient` 接口，业务层无需改动。完整构建、Vercel 部署与排错步骤见 [docs/STATIC_DEMO_DEPLOYMENT.md](docs/STATIC_DEMO_DEPLOYMENT.md)。已上线示例：<https://twin.ixoshub.top/>。
+
 ## 体验一次完整作业
 
 1. 登录后，点击蓝色占用库位，或在右侧任务中心点击「一键出库」。初始有 6 个有货库位，两台空闲车自动领取任务。
